@@ -1,1 +1,1 @@
-/home/dimar/Desktop/Blockchain/blockchain/target/debug/blockchain: /home/dimar/Desktop/Blockchain/blockchain/src/main.rs
+/home/dimar/Desktop/Blockchain/blockchain/target/debug/blockchain: /home/dimar/Desktop/Blockchain/blockchain/src/block.rs /home/dimar/Desktop/Blockchain/blockchain/src/lib.rs /home/dimar/Desktop/Blockchain/blockchain/src/main.rs
