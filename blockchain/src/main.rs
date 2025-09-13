@@ -8,6 +8,10 @@ fn main () {
     assert_eq!(map.get(&"Alice"), Some(&100));
     assert_eq!(map.get(&"Bob"), None);
 
-    let x = map.get("assssss");
+    let maybe_value: Option<&i32> = map.get("Alice");
+    match maybe_value {
+        Some(value) => println!("Found value: {}", value),
+        None => println!("Value not found"),
+    }
      
 }
