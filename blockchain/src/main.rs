@@ -1,17 +1,47 @@
-use std::collections::BTreeMap;
+use tokio::runtime;
+
+
 mod balances;
-fn main () {
-    println!("Blockchain module loaded successfully.");
-
-    let mut map = BTreeMap::new();
-    map.insert("Alice", 100);
-    assert_eq!(map.get(&"Alice"), Some(&100));
-    assert_eq!(map.get(&"Bob"), None);
-
-    let maybe_value: Option<&i32> = map.get("Alice");
-    match maybe_value {
-        Some(value) => println!("Found value: {}", value),
-        None => println!("Value not found"),
-    }
-     
+mod system;
+#[derive(Debug)]
+pub struct Runtime {
+    balances: balances::Pallet,
+    system: system::Pallet,
 }
+impl Runtime {
+    fn new() -> Self {
+        Self {
+            balances: balances::Pallet::new(),
+            system: system::Pallet::new(),
+        }
+    }
+}
+fn main () {
+    let mut runtime = Runtime::new();
+
+    let alice = "alice".to_string();
+    let bob = "bob".to_string();
+    let charlie = "charlie".to_string();
+
+    runtime.balances.set_balance(&alice, 100);
+    runtime.system.inc_block_number();
+
+    assert_eq!(runtime.system.block_number(), 1);
+    
+    runtime.system.inc_nonce(&alice);
+
+    let _ = runtime.balances
+        .transfer(&alice.clone(), &bob.clone(), 30)
+        .map_err(|e| println!("Transfer failed: {:?}", e));
+    
+    runtime.system.inc_nonce(&alice);
+
+    let _ = runtime.balances
+        .transfer(&alice.clone(), &&charlie.clone(), 20)
+        .map_err(|e| println!("Transfer failed: {:?}", e));
+
+    println!("{:#?}", runtime);
+    
+}
+
+
