@@ -1,17 +1,14 @@
 use std::{collections::BTreeMap, ops::AddAssign};
 use num::{CheckedAdd, CheckedSub, One, Zero};
-
 pub trait Config {
     type AccountId: Ord + Clone;
     type BlockNumber: Zero + One + Copy + AddAssign;
     type Nonce:  Copy + Zero + One;
 }
-
 #[derive(Debug)]
 pub struct Pallet<T: Config> {
     block_number: T::BlockNumber,
     nonce: BTreeMap<T::AccountId, T::Nonce>,
-
 }
 impl <T: Config> Pallet<T>
     {    
@@ -34,7 +31,6 @@ impl <T: Config> Pallet<T>
     pub fn get_nonce(&self, who: &T::AccountId) -> T::Nonce {
         *self.nonce.get(who).unwrap_or(&T::Nonce::zero())
     }
-
 }
 #[cfg(test)]
 mod test {

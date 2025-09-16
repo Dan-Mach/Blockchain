@@ -1,10 +1,8 @@
 use std::collections::BTreeMap;
 use num::traits::{CheckedAdd, CheckedSub, Zero};
-
 pub trait Config: crate::system::Config {
     type Balance: Zero + CheckedSub + CheckedAdd + Copy;
 }
-
 #[derive(Debug)]
 pub struct Pallet<T: Config> {
     balances: BTreeMap<T::AccountId, T::Balance>,
@@ -43,9 +41,10 @@ impl <T: Config> Pallet<T>
     }
 }
 
+
+
 pub enum Call<T: Config>{
     Transfer{ to: T::AccountId, amount: T::Balance },
-    
 }
 
 impl <T: Config> crate::support::Dispatch for Pallet<T> {
@@ -64,8 +63,6 @@ impl <T: Config> crate::support::Dispatch for Pallet<T> {
 #[cfg(test)]
 mod tests {
     use crate::system;
-
-
     struct TestConfig;
     impl system::Config for TestConfig {
         type AccountId = String;
@@ -86,7 +83,6 @@ mod tests {
         assert_eq!(balaances.balance(&"Alice".to_string()), 100);
         assert_eq!(balaances.balance(&"Bob".to_string()), 0);
     }
-
     #[test]
     fn transfer_balance() {
         let Alice = &"Alice".to_string();
