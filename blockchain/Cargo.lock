@@ -58,6 +58,7 @@ name = "blockchain"
 version = "0.1.0"
 dependencies = [
  "hex",
+ "macros",
  "num",
  "serde",
  "sha2",
@@ -157,6 +158,15 @@ checksum = "96936507f153605bddfcda068dd804796c84324ed2510809e5b2a624c81da765"
 dependencies = [
  "autocfg",
  "scopeguard",
+]
+
+[[package]]
+name = "macros"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
