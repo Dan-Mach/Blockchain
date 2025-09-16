@@ -98,11 +98,11 @@ fn main () {
         extrinsics: vec![
             support::Extrinsic { 
                 caller: alice.clone(), 
-                call: RuntimeCall::Balances(balances::Call::Transfer { to: bob.clone(), amount: 30 })
+                call: RuntimeCall::Balances(balances::Call::transfer { to: bob.clone(), amount: 30 })
             },
             support::Extrinsic { 
                 caller: alice.clone(), 
-                call: RuntimeCall::Balances(balances::Call::Transfer{ to: charlie.clone(), amount: 20 } )
+                call: RuntimeCall::Balances(balances::Call::transfer{ to: charlie.clone(), amount: 20 } )
             },
         ]
     };
@@ -111,11 +111,11 @@ fn main () {
         extrinsics: vec![
             support::Extrinsic { 
                 caller: alice.clone(), 
-                call: RuntimeCall::ProofOfExistence(proof_of_existence::Call::CreateClaim {claim: "my_document"})
+                call: RuntimeCall::ProofOfExistence(proof_of_existence::Call::create_claim{claim: "my_document"})
             },
             support::Extrinsic { 
                 caller: bob.clone(), 
-                call: RuntimeCall::ProofOfExistence(proof_of_existence::Call::CreateClaim { claim:"bobs document"} )
+                call: RuntimeCall::ProofOfExistence(proof_of_existence::Call::create_claim { claim:"bobs document"} )
             },
         ]
     };
