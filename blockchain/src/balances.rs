@@ -9,6 +9,7 @@ pub struct Pallet<T: Config> {
 
 }
 
+
 #[macros::call]
 impl <T: Config> Pallet<T>{
     pub fn transfer(&mut self, caller: T::AccountId, to: T::AccountId, amount: T::Balance) -> Result<(), &'static str> {

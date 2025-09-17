@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 
 pub struct Block<Header, Extrinsic> {
     pub header: Header,
@@ -6,6 +8,7 @@ pub struct Block<Header, Extrinsic> {
 pub struct Header<BlockNumber> {
     pub block_number: BlockNumber,
 }
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Extrinsic<Caller, Call> {
     pub caller: Caller,
     pub call: Call,
