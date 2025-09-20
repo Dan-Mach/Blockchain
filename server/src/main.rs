@@ -9,30 +9,34 @@ use serde_json;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let runtime = Arc::new(Mutex::new(Runtime::new()));
-    let listener = TcpListener::bind("127.0.0.1:8080").await?;
-    println!("Server listening on 127.0.0.1:8080");
+    let listener = TcpListener::bind("127.0.0.1:8080").await.unwrap();
+    
     loop {
-        // Accept incoming connections
         let (socket, _) = listener.accept().await?;
-        // Clone the Arc to give each new task access to the shared runtime
-        let runtime_clone = Arc::clone(&runtime);
-
+        let runtime = Arc::clone(&runtime);
         tokio::spawn(async move {
-            if let Err(e) = handle_connection(socket, runtime_clone).await {
-                eprintln!("Failed to handle connection: {}", e);
-            }
+            handle_connection(socket, runtime);
         });
     }
 }
 
-async fn handle_connection(mut stream: TcpStream, runtime: Arc<Mutex<Runtime>>) -> Result<(), Box<dyn std::error::Error>> {
+fn handle_connection(mut socket: TcpStream, runtime: Arc<Mutex<Runtime>>) {
     let mut buffer = [0; 1024];
-    loop {
-        let bytes_read = stream.read(&mut buffer).await?;
-        if bytes_read == 0 {
-            // Connection closed
-            break;
+    tokio::spawn(async move {
+        match socket.read(&mut buffer).await {
+            Ok(n) if n == 0 => return, // connection closed
+            Ok(n) => {
+                // For simplicity, always respond with index.html
+                let response_body = std::fs::read_to_string("./assets/index.html").unwrap_or_else(|_| "<h1>File not found</h1>".to_string());
+                let response = format!(
+                    "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: text/html\r\n\r\n{}",
+                    response_body.len(),
+                    response_body
+                );
+                let _ = socket.write_all(response.as_bytes()).await;
+            }
+            Err(_) => return,
         }
-    }
-    Ok(())
+    });
+    
 }
