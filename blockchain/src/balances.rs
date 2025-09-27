@@ -9,7 +9,6 @@ pub struct Pallet<T: Config> {
 
 }
 
-
 #[macros::call]
 impl <T: Config> Pallet<T>{
     pub fn transfer(&mut self, caller: T::AccountId, to: T::AccountId, amount: T::Balance) -> Result<(), &'static str> {
@@ -31,9 +30,7 @@ impl <T: Config> Pallet<T>{
     }
 }
 
-
-impl <T: Config> Pallet<T>
-    {
+impl <T: Config> Pallet<T>{
     pub fn new() -> Self {
         Self {
             balances: BTreeMap::new(),
@@ -44,8 +41,7 @@ impl <T: Config> Pallet<T>
     }
     pub fn balance(&self, who: &T::AccountId) -> T::Balance {
         *self.balances.get(who).unwrap_or(&T::Balance::zero())
-    }
-    
+    }   
 }
 
 #[cfg(test)]

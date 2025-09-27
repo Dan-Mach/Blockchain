@@ -31,10 +31,10 @@ impl system::Config for Runtime {
 impl balances::Config for Runtime {
     type Balance = types::Balance;
 }
-
 impl proof_of_existence::Config for Runtime {
     type Content = types::Content;
 }
+
 #[derive(Debug)]
 pub struct Runtime {
     system: system::Pallet<Runtime>,
