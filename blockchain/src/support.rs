@@ -1,10 +1,12 @@
 use serde::{Deserialize, Serialize};
 
 
+#[derive(Debug)]
 pub struct Block<Header, Extrinsic> {
     pub header: Header,
     pub extrinsics: Vec<Extrinsic>,
 }
+#[derive(Debug)]
 pub struct Header<BlockNumber> {
     pub block_number: BlockNumber,
 }
