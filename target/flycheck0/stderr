@@ -3,7 +3,6 @@ warning: virtual workspace defaulting to `resolver = "1"` despite one or more wo
   = note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
   = note: to use the edition 2024 resolver, specify `workspace.resolver = "3"` in the workspace root's manifest
   = note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
-    Checking blockchain v0.1.0 (/home/dimar/Desktop/Repositories/Blockchain/blockchain)
 warning: unused dependency `expand`
   --> blockchain/Cargo.toml:14:1
    |
@@ -27,4 +26,4 @@ warning: unused dependency `sha2`
    |
 help: consider removing the dependency on `sha2`
 warning: `blockchain` (manifest) generated 3 warnings
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.07s

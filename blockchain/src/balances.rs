@@ -102,7 +102,7 @@ mod tests {
         let Alice = "Alice".to_string();
         let Bob = "Bob".to_string();
         let mut balances: super::Pallet<TestConfig> = super::Pallet::new();
-        balances.set_balance(&"Alice".to_string(), 100);
+        balances.set_balance(&"Alice".to_string(), 200);
         balances.set_balance(&"Bob".to_string(), u128::MAX);
 
         let result = balances.transfer(Alice.clone(), Bob.clone(), 1);
